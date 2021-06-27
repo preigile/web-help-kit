@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.root {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "header  header"
+    "sidebar content";
+  justify-content: center;
+  align-content: end;
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  overflow: scroll;
+  border-right: 1px solid $grey;
+}
+
+.content {
+  grid-area: content;
+  overflow: scroll;
+}
