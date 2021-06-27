@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { IContent } from "../../interfaces/content";
+import React from "react";
 import style from "./TableOfContents.module.scss";
 
-const TableOfContents = () => {
-  const [items, setItems] = useState<IContent[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
+interface IProps {
+  contents: any;
+  isLoading: boolean;
+  isError: boolean;
+}
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("/help/idea/2018.3/HelpTOC.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data.topLevelIds);
-        setIsError(false);
-      })
-      .catch(() => {
-        setIsError(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
-
+const TableOfContents: React.FC<IProps> = ({
+  contents,
+  isLoading,
+  isError,
+}) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -33,9 +22,10 @@ const TableOfContents = () => {
 
   return (
     <div className={style.root}>
-      {items.map((id) => {
-        return <div>{id}</div>;
-      })}
+      {contents &&
+        contents.topLevelIds.map((id: string) => {
+          return <div key={id}>{id}</div>;
+        })}
     </div>
   );
 };

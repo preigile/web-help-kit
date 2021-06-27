@@ -1,3 +1,3 @@
 export interface IContent {
-  id: string;
+  topLevelIds: string;
 }
