@@ -1,8 +1,8 @@
 import React from "react";
-import style from "App.module.scss";
+import HelpPage from "./pages/HelpPage";
 
 function App() {
-  return <div className={style.app}>App</div>;
+  return <HelpPage />;
 }
 
 export default App;

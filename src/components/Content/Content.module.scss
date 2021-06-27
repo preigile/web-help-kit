@@ -1,0 +1,9 @@
+.root {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 110px;
+}
+
+.content {
+  margin: 30px;
+}
