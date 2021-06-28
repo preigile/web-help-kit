@@ -1,3 +1,11 @@
+import { IAnchor } from "./anchor";
+import { IObject } from "./object";
+import { IPage } from "./page";
+
 export interface IContent {
-  topLevelIds: string;
+  entities: {
+    pages: IObject<IPage>;
+    anchors: IObject<IAnchor>;
+  };
+  topLevelIds: string[];
 }

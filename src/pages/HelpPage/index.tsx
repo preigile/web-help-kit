@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import TableOfContents from "../../components/TableOfContents";
 import getData from "../../hooks/getData";
+import { IContent } from "../../interfaces/content";
 import style from "./HelpPage.module.scss";
 
 const HelpPage = () => {
@@ -11,7 +12,7 @@ const HelpPage = () => {
     data: contents,
     isLoading,
     isError,
-  } = getData<any>("/help/idea/2018.3/HelpTOC.json", []);
+  } = getData<IContent>("/help/idea/2018.3/HelpTOC.json", []);
 
   return (
     <div className={style.root}>
@@ -19,11 +20,13 @@ const HelpPage = () => {
         <Header />
       </div>
       <div className={style.sidebar}>
-        <TableOfContents
-          contents={contents}
-          isLoading={isLoading}
-          isError={isError}
-        />
+        {contents && (
+          <TableOfContents
+            contents={contents}
+            isLoading={isLoading}
+            isError={isError}
+          />
+        )}
       </div>
       <div className={style.content}>
         <Content />
