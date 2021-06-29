@@ -1,10 +1,9 @@
 import cn from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/all";
+import { PagesContext } from "../../context/PagesContext";
 
-import { IAnchor } from "../../interfaces/anchor";
-import { IPage } from "../../interfaces/page";
-import Anchor from "./Anchor";
+import AnchorList from "./AnchorList";
 import style from "./TOCItem.module.scss";
 
 interface IProps {
@@ -14,8 +13,6 @@ interface IProps {
   marginLeft: number;
   pagesIds?: string[];
   anchorsIds?: string[];
-  pages?: Map<string, IPage>;
-  anchors?: Map<string, IAnchor>;
 
   onSelectPage: (pageId: string) => void;
 }
@@ -29,13 +26,11 @@ const TOCItem: React.FC<IProps> = ({
   marginLeft,
   pagesIds,
   anchorsIds,
-  pages,
-  anchors,
   onSelectPage,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [activeAnchorId, setActiveAnchorId] = useState<string>("");
+
+  const pages = useContext(PagesContext);
 
   const hasNestedPage = pagesIds && pagesIds.length > 0;
   const hasAnchors = anchorsIds && anchorsIds.length > 0;
@@ -47,10 +42,6 @@ const TOCItem: React.FC<IProps> = ({
     }
   }, []);
 
-  useEffect(() => {
-    setIsActive(id === activeId);
-  }, [activeId, id]);
-
   const clickHandler = (pageId: string) => {
     onSelectPage(pageId);
     setIsOpen((current) => {
@@ -58,13 +49,9 @@ const TOCItem: React.FC<IProps> = ({
     });
   };
 
-  const onSelectAnchor = (anchorId: string) => {
-    setActiveAnchorId(anchorId);
-  };
-
   return (
     <>
-      <li className={cn(style.root, { [style.active]: isActive })}>
+      <li className={cn(style.root, { [style.active]: id === activeId })}>
         <div
           className={style.pageLink}
           style={{ marginLeft: marginLeft }}
@@ -78,26 +65,7 @@ const TOCItem: React.FC<IProps> = ({
           <span className={cn(style.title, style.pageTitle)}>{title}</span>
         </div>
         {isOpen && hasAnchors ? (
-          <ul className={style.anchorList}>
-            {anchorsIds?.map((anchorId) => {
-              const anchor = anchors?.get(anchorId);
-              if (!anchor) {
-                return null;
-              }
-
-              return (
-                <li key={anchorId}>
-                  <Anchor
-                    id={anchorId}
-                    marginLeft={marginLeft}
-                    title={anchor.title}
-                    activeId={activeAnchorId}
-                    onSelect={(id) => onSelectAnchor(id)}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          <AnchorList anchorsIds={anchorsIds!} marginLeft={marginLeft} />
         ) : null}
       </li>
 
@@ -117,8 +85,6 @@ const TOCItem: React.FC<IProps> = ({
                 marginLeft={page.level * ITEM_LEFT_MARGIN}
                 pagesIds={page.pages}
                 anchorsIds={page.anchors}
-                pages={pages}
-                anchors={anchors}
                 onSelectPage={(id) => onSelectPage(id)}
               />
             );

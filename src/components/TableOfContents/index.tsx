@@ -1,3 +1,4 @@
+import { PagesContext } from "../../context/PagesContext";
 import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
 import { IPage } from "../../interfaces/page";
@@ -5,6 +6,7 @@ import objectToMap from "../../utils/convertToMap";
 import React, { useEffect, useState } from "react";
 import style from "./TableOfContents.module.scss";
 import TOCItem from "./TOCItem";
+import { AnchorsContext } from "context/AnchorsContext";
 
 interface IProps {
   contents: IContent;
@@ -38,18 +40,20 @@ const TableOfContents: React.FC<IProps> = ({
             }
 
             return (
-              <TOCItem
-                key={pageId}
-                id={pageId}
-                title={page.title}
-                marginLeft={page.level * ITEM_LEFT_MARGIN}
-                activeId={activePageId}
-                pagesIds={page.pages}
-                anchorsIds={page.anchors}
-                pages={pages}
-                anchors={anchors}
-                onSelectPage={onActiveIdUpdate}
-              />
+              <PagesContext.Provider value={pages}>
+                <AnchorsContext.Provider value={anchors}>
+                  <TOCItem
+                    key={pageId}
+                    id={pageId}
+                    title={page.title}
+                    marginLeft={page.level * ITEM_LEFT_MARGIN}
+                    activeId={activePageId}
+                    pagesIds={page.pages}
+                    anchorsIds={page.anchors}
+                    onSelectPage={onActiveIdUpdate}
+                  />
+                </AnchorsContext.Provider>
+              </PagesContext.Provider>
             );
           })}
         </ul>
