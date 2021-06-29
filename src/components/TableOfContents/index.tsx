@@ -8,7 +8,6 @@ import TOCItem from "./TOCItem";
 
 interface IProps {
   contents: IContent;
-  isError: boolean;
   activePageId: string;
   onActiveIdUpdate: (id: string) => void;
 }
@@ -17,7 +16,6 @@ const ITEM_LEFT_MARGIN = 10;
 
 const TableOfContents: React.FC<IProps> = ({
   contents,
-  isError,
   activePageId,
   onActiveIdUpdate,
 }) => {
@@ -28,10 +26,6 @@ const TableOfContents: React.FC<IProps> = ({
     setPages(objectToMap(contents.entities.pages));
     setAnchors(objectToMap(contents.entities.anchors));
   }, [contents.entities.anchors, contents.entities.pages]);
-
-  if (isError) {
-    return <div>Ups!</div>;
-  }
 
   return (
     <div className={style.root}>

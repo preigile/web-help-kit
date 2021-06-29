@@ -1,4 +1,4 @@
-import React, { Component, ComponentType } from "react";
+import React, { ComponentType } from "react";
 import Skeleton from "../components/Skeleton";
 import style from "../components/TableOfContents/TableOfContents.module.scss";
 
@@ -8,8 +8,8 @@ interface WithLoadingProps {
 
 export const withLoading =
   <P, S>(WrappedComponent: ComponentType<P>) =>
-  (props: P & WithLoadingProps) =>
-    props.isLoading ? (
+  (props: P & WithLoadingProps) => {
+    return props.isLoading ? (
       <div className={style.skeletonContainer}>
         <Skeleton />
         <Skeleton />
@@ -17,3 +17,4 @@ export const withLoading =
     ) : (
       <WrappedComponent {...props} />
     );
+  };
