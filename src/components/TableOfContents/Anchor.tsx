@@ -6,8 +6,7 @@ interface IProps {
   id: string;
   title: string;
   marginLeft: number;
-  activeId: string;
-
+  isActive: boolean;
   onSelect: (id: string) => void;
 }
 
@@ -15,15 +14,9 @@ const Anchor: React.FC<IProps> = ({
   id,
   title,
   marginLeft,
-  activeId,
+  isActive,
   onSelect,
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsActive(id === activeId);
-  }, [activeId, id]);
-
   const clickHandler = (id: string) => {
     onSelect(id);
   };

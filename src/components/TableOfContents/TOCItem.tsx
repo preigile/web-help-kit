@@ -65,7 +65,13 @@ const TOCItem: React.FC<IProps> = ({
           <span className={cn(style.title, style.pageTitle)}>{title}</span>
         </div>
         {isOpen && hasAnchors ? (
-          <AnchorList anchorsIds={anchorsIds!} marginLeft={marginLeft} />
+          <ul className={style.anchorList} onClick={() => onSelectPage(id)}>
+            <AnchorList
+              anchorsIds={anchorsIds!}
+              marginLeft={marginLeft}
+              parentIsActive={id === activeId}
+            />
+          </ul>
         ) : null}
       </li>
 

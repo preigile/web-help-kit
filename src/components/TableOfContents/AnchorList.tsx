@@ -6,15 +6,19 @@ import style from "./TOCItem.module.scss";
 interface IProps {
   anchorsIds: string[];
   marginLeft: number;
+  parentIsActive: boolean;
 }
 
-const AnchorList: React.FC<IProps> = ({ anchorsIds, marginLeft }) => {
+const AnchorList: React.FC<IProps> = ({
+  anchorsIds,
+  marginLeft,
+  parentIsActive,
+}) => {
+  const anchors = useContext(AnchorsContext);
   const [activeId, setActiveId] = useState<string>("");
 
-  const anchors = useContext(AnchorsContext);
-
   return (
-    <ul className={style.anchorList}>
+    <>
       {anchorsIds.map((anchorId) => {
         const anchor = anchors.get(anchorId);
         if (!anchor) {
@@ -27,13 +31,13 @@ const AnchorList: React.FC<IProps> = ({ anchorsIds, marginLeft }) => {
               id={anchorId}
               marginLeft={marginLeft}
               title={anchor.title}
-              activeId={activeId}
+              isActive={parentIsActive && activeId === anchorId}
               onSelect={setActiveId}
             />
           </li>
         );
       })}
-    </ul>
+    </>
   );
 };
 
