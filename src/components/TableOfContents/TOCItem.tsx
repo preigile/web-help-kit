@@ -60,7 +60,6 @@ const TOCItem: React.FC<IProps> = ({
 
   const onSelectAnchor = (anchorId: string) => {
     setActiveAnchorId(anchorId);
-    console.log("anchorId", anchorId);
   };
 
   return (
@@ -76,7 +75,7 @@ const TOCItem: React.FC<IProps> = ({
               {isOpen ? <BiChevronUp /> : <BiChevronDown />}
             </span>
           )}
-          <span className={style.title}>{title}</span>
+          <span className={cn(style.title, style.pageTitle)}>{title}</span>
         </div>
         {isOpen && hasAnchors ? (
           <ul className={style.anchorList}>

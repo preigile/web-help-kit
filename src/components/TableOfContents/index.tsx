@@ -11,7 +11,8 @@ interface IProps {
   contents: IContent;
   isLoading: boolean;
   isError: boolean;
-  activePageId?: string;
+  activePageId: string;
+  onActiveIdUpdate: (id: string) => void;
 }
 
 const ITEM_LEFT_MARGIN = 10;
@@ -21,22 +22,15 @@ const TableOfContents: React.FC<IProps> = ({
   isLoading,
   isError,
   activePageId,
+  onActiveIdUpdate,
 }) => {
   const [pages, setPages] = useState<Map<string, IPage>>(new Map());
   const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());
-  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     setPages(objectToMap(contents.entities.pages));
     setAnchors(objectToMap(contents.entities.anchors));
-    if (activePageId) {
-      setActiveId(activePageId);
-    }
-  }, [activePageId, contents.entities.anchors, contents.entities.pages]);
-
-  const setActive = (id: string) => {
-    setActiveId(id);
-  };
+  }, [contents.entities.anchors, contents.entities.pages]);
 
   if (isError) {
     return <div>Ups!</div>;
@@ -63,12 +57,12 @@ const TableOfContents: React.FC<IProps> = ({
                 id={pageId}
                 title={page.title}
                 marginLeft={page.level * ITEM_LEFT_MARGIN}
-                activeId={activeId}
+                activeId={activePageId}
                 pagesIds={page.pages}
                 anchorsIds={page.anchors}
                 pages={pages}
                 anchors={anchors}
-                onSelectPage={(id) => setActive(id)}
+                onSelectPage={onActiveIdUpdate}
               />
             );
           })}

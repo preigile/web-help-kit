@@ -8,6 +8,10 @@
 
   &.active {
     background: $grey-light;
+
+    .pageTitle {
+      font-weight: bold;
+    }
   }
 
   .pageLink:hover,
