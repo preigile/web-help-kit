@@ -59,7 +59,11 @@ const TOCItem: React.FC<IProps> = ({
         >
           {hasChildren && (
             <span className={style.icon}>
-              {isOpen ? <BiChevronUp /> : <BiChevronDown />}
+              <BiChevronUp
+                className={cn(style.chevronIcon, {
+                  [style.chevronDown]: isOpen,
+                })}
+              />
             </span>
           )}
           <span className={cn(style.title, style.pageTitle)}>{title}</span>

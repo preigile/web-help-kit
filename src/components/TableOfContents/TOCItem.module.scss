@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: end;
   padding: 8px 0 8px 16px;
+  transition: background .2s ease-in-out;
 
   &.active {
     background: $grey-light;
@@ -35,11 +36,20 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
+    transition: all .2s ease-in-out;
   }
 
   .icon {
     width: 16px;
     height: 16px;
+
+    .chevronIcon {
+      transition: all .2s linear;
+
+      &.chevronDown {
+        transform: rotate(180deg);
+      }
+    }
   }
 }
 
