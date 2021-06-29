@@ -2,15 +2,26 @@
 
 .root {
   display: flex;
+  flex-direction: column;
   align-items: end;
   padding: 8px 0 8px 16px;
 
-  &:hover {
+  &.active {
+    background: $grey-light;
+  }
+
+  .pageLink:hover,
+  .anchorLink:hover {
     cursor: pointer;
 
     .title {
       text-decoration: underline;
     }
+  }
+
+  .pageLink {
+    display: flex;
+    align-items: end;
   }
 
   .title {
@@ -28,6 +39,16 @@
   }
 }
 
-.anchorTitle {
-  margin-left: 6px;
+.anchorList {
+  margin-top: 10px;
+
+  .anchorTitle {
+    margin-left: 16px;
+  }
+
+  .activeAnchor {
+    .anchorTitle {
+      font-weight: bold;
+    }
+  }
 }

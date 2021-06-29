@@ -35,6 +35,7 @@ const HelpPage = () => {
           contents={contents || InitialTOCState}
           isLoading={isLoading}
           isError={isError}
+          activePageId={"top"}
         />
       </div>
       <div className={style.content}>
