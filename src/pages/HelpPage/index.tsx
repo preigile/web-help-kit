@@ -4,8 +4,19 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import TableOfContents from "../../components/TableOfContents";
 import getData from "../../hooks/getData";
+import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
+import { IObject } from "../../interfaces/object";
+import { IPage } from "../../interfaces/page";
 import style from "./HelpPage.module.scss";
+
+const InitialTOCState: IContent = {
+  entities: {
+    pages: {} as IObject<IPage>,
+    anchors: {} as IObject<IAnchor>,
+  },
+  topLevelIds: [],
+};
 
 const HelpPage = () => {
   const {
@@ -20,13 +31,11 @@ const HelpPage = () => {
         <Header />
       </div>
       <div className={style.sidebar}>
-        {contents && (
-          <TableOfContents
-            contents={contents}
-            isLoading={isLoading}
-            isError={isError}
-          />
-        )}
+        <TableOfContents
+          contents={contents || InitialTOCState}
+          isLoading={isLoading}
+          isError={isError}
+        />
       </div>
       <div className={style.content}>
         <Content />

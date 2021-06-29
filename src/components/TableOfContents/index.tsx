@@ -1,3 +1,4 @@
+import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
 import { IPage } from "../../interfaces/page";
 import objectToMap from "../../utils/convertToMap";
@@ -12,16 +13,20 @@ interface IProps {
   isError: boolean;
 }
 
+const ITEM_LEFT_MARGIN = 10;
+
 const TableOfContents: React.FC<IProps> = ({
   contents,
   isLoading,
   isError,
 }) => {
   const [pages, setPages] = useState<Map<string, IPage>>(new Map());
+  const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());
 
   useEffect(() => {
     setPages(objectToMap(contents.entities.pages));
-  }, []);
+    setAnchors(objectToMap(contents.entities.anchors));
+  }, [contents.entities.anchors, contents.entities.pages]);
 
   if (isError) {
     return <div>Ups!</div>;
@@ -29,33 +34,34 @@ const TableOfContents: React.FC<IProps> = ({
 
   return (
     <div className={style.root}>
-      <div>{pages.size}</div>
       {isLoading ? (
-        <>
+        <div className={style.skeletonContainer}>
           <Skeleton />
           <Skeleton />
-        </>
-      ) : (
-        contents &&
-        contents.topLevelIds.map((pageId: string) => {
-          const page = pages.get(pageId);
-          if (!page) {
-            return <p>There empty page</p>;
-          }
+        </div>
+      ) : contents?.topLevelIds.length ? (
+        <ul>
+          {contents.topLevelIds.map((pageId: string) => {
+            const page = pages.get(pageId);
+            if (!page) {
+              return <p>No such page exists</p>;
+            }
 
-          return (
-            <div key={pageId}>
+            return (
               <TOCItem
+                key={pageId}
                 id={pageId}
                 title={page.title}
-                marginLeft={page.level * 10}
-                isActive={false}
-                isOpen={false}
+                marginLeft={page.level * ITEM_LEFT_MARGIN}
+                pagesIds={page.pages}
+                anchorsIds={page.anchors}
+                pages={pages}
+                anchors={anchors}
               />
-            </div>
-          );
-        })
-      )}
+            );
+          })}
+        </ul>
+      ) : null}
     </div>
   );
 };

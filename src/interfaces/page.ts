@@ -7,5 +7,5 @@ export interface IPage {
   disqus_id: string;
   parentId?: string;
   pages?: string[];
-  anchor?: string[];
+  anchors?: string[];
 }
