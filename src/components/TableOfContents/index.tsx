@@ -2,14 +2,12 @@ import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
 import { IPage } from "../../interfaces/page";
 import objectToMap from "../../utils/convertToMap";
-import Skeleton from "../Skeleton";
 import React, { useEffect, useState } from "react";
 import style from "./TableOfContents.module.scss";
 import TOCItem from "./TOCItem";
 
 interface IProps {
   contents: IContent;
-  isLoading: boolean;
   isError: boolean;
   activePageId: string;
   onActiveIdUpdate: (id: string) => void;
@@ -19,7 +17,6 @@ const ITEM_LEFT_MARGIN = 10;
 
 const TableOfContents: React.FC<IProps> = ({
   contents,
-  isLoading,
   isError,
   activePageId,
   onActiveIdUpdate,
@@ -38,12 +35,7 @@ const TableOfContents: React.FC<IProps> = ({
 
   return (
     <div className={style.root}>
-      {isLoading ? (
-        <div className={style.skeletonContainer}>
-          <Skeleton />
-          <Skeleton />
-        </div>
-      ) : contents?.topLevelIds.length ? (
+      {contents?.topLevelIds.length ? (
         <ul>
           {contents.topLevelIds.map((pageId: string) => {
             const page = pages.get(pageId);

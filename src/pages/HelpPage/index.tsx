@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Content from "../../components/Content";
 import Header from "../../components/Header";
 import TableOfContents from "../../components/TableOfContents";
+import { withLoading } from "../../hoc/withLoading";
 import useData from "../../hooks/useData";
 import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
@@ -16,6 +17,8 @@ const InitialTOCState: IContent = {
   },
   topLevelIds: [],
 };
+
+const TableOfContextWithLoading = withLoading(TableOfContents);
 
 const HelpPage = () => {
   const {
@@ -32,7 +35,7 @@ const HelpPage = () => {
         <Header />
       </div>
       <div className={style.sidebar}>
-        <TableOfContents
+        <TableOfContextWithLoading
           contents={contents || InitialTOCState}
           isLoading={isLoading}
           isError={isError}
