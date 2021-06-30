@@ -1,7 +1,8 @@
 import cn from "classnames";
 import React, { useContext, useEffect, useState } from "react";
-import { BiChevronDown, BiChevronUp } from "react-icons/all";
+import { BiChevronUp } from "react-icons/all";
 import { PagesContext } from "../../context/PagesContext";
+import { getParentsId } from "../../utils/getParentsId";
 
 import AnchorList from "./AnchorList";
 import style from "./TOCItem.module.scss";
@@ -10,7 +11,7 @@ interface IProps {
   id: string;
   title: string;
   activeId: string;
-  marginLeft: number;
+  leftIndent: number;
   pagesIds?: string[];
   anchorsIds?: string[];
 
@@ -23,20 +24,26 @@ const TOCItem: React.FC<IProps> = ({
   id,
   title,
   activeId,
-  marginLeft,
+  leftIndent,
   pagesIds,
   anchorsIds,
   onSelectPage,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const pages = useContext(PagesContext);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const hasNestedPage = pagesIds && pagesIds.length > 0;
   const hasAnchors = anchorsIds && anchorsIds.length > 0;
   const hasChildren = hasNestedPage || hasAnchors;
 
   useEffect(() => {
+    const parentIds: string[] = getParentsId(activeId, pages);
+    parentIds.map((parentId) => {
+      if (parentId === id) {
+        setIsOpen(true);
+      }
+    });
+
     if (id === activeId) {
       setIsOpen(true);
     }
@@ -54,7 +61,7 @@ const TOCItem: React.FC<IProps> = ({
       <li className={cn(style.root, { [style.active]: id === activeId })}>
         <div
           className={style.pageLink}
-          style={{ marginLeft: marginLeft }}
+          style={{ paddingLeft: leftIndent }}
           onClick={() => clickHandler(id)}
         >
           {hasChildren && (
@@ -72,7 +79,7 @@ const TOCItem: React.FC<IProps> = ({
           <ul className={style.anchorList} onClick={() => onSelectPage(id)}>
             <AnchorList
               anchorsIds={anchorsIds!}
-              marginLeft={marginLeft}
+              leftIndent={leftIndent}
               parentIsActive={id === activeId}
             />
           </ul>
@@ -92,7 +99,7 @@ const TOCItem: React.FC<IProps> = ({
                 id={pageId}
                 title={page.title}
                 activeId={activeId}
-                marginLeft={page.level * ITEM_LEFT_MARGIN}
+                leftIndent={page.level * ITEM_LEFT_MARGIN}
                 pagesIds={page.pages}
                 anchorsIds={page.anchors}
                 onSelectPage={(id) => onSelectPage(id)}

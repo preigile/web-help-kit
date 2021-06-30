@@ -28,7 +28,7 @@ const HelpPage = () => {
     isError,
   } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", []);
 
-  const [activeId, setActiveId] = useState<string>("top");
+  const [activeId, setActiveId] = useState<string>("topicId287958");
 
   return (
     <div className={style.root}>

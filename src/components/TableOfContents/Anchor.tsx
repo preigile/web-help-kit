@@ -1,11 +1,11 @@
 import cn from "classnames";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./TOCItem.module.scss";
 
 interface IProps {
   id: string;
   title: string;
-  marginLeft: number;
+  leftIndent: number;
   isActive: boolean;
   onSelect: (id: string) => void;
 }
@@ -13,7 +13,7 @@ interface IProps {
 const Anchor: React.FC<IProps> = ({
   id,
   title,
-  marginLeft,
+  leftIndent,
   isActive,
   onSelect,
 }) => {
@@ -26,7 +26,7 @@ const Anchor: React.FC<IProps> = ({
       className={cn(style.root, style.anchorLink, {
         [style.activeAnchor]: isActive,
       })}
-      style={{ marginLeft: marginLeft }}
+      style={{ paddingLeft: leftIndent }}
       onClick={() => clickHandler(id)}
     >
       <span className={cn(style.title, style.anchorTitle)}>{title}</span>

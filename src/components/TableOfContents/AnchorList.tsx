@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
 import { AnchorsContext } from "../../context/AnchorsContext";
 import Anchor from "./Anchor";
-import style from "./TOCItem.module.scss";
 
 interface IProps {
   anchorsIds: string[];
-  marginLeft: number;
+  leftIndent: number;
   parentIsActive: boolean;
 }
 
 const AnchorList: React.FC<IProps> = ({
   anchorsIds,
-  marginLeft,
+  leftIndent,
   parentIsActive,
 }) => {
   const anchors = useContext(AnchorsContext);
@@ -29,7 +28,7 @@ const AnchorList: React.FC<IProps> = ({
           <li key={anchorId}>
             <Anchor
               id={anchorId}
-              marginLeft={marginLeft}
+              leftIndent={leftIndent}
               title={anchor.title}
               isActive={parentIsActive && activeId === anchorId}
               onSelect={setActiveId}

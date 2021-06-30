@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.root {
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 1px solid $grey;
+  transition: border ease-in-out 0.25s;
+
+  &:focus-visible {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid $dark;
+  }
+}
