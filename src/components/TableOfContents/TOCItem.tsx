@@ -37,12 +37,10 @@ const TOCItem: React.FC<IProps> = ({
   const hasChildren = hasNestedPage || hasAnchors;
 
   useEffect(() => {
-    const parentIds: string[] = getParentsId(activeId, pages);
-    parentIds.map((parentId) => {
-      if (parentId === id) {
-        setIsOpen(true);
-      }
-    });
+    const parentIdsSet: Set<string> = new Set(getParentsId(activeId, pages));
+    if (parentIdsSet.has(id)) {
+      setIsOpen(true);
+    }
 
     if (id === activeId) {
       setIsOpen(true);

@@ -1,5 +1,5 @@
 import { IPage } from "../interfaces/page";
-let result: string[] = [];
+const parentIds: string[] = [];
 
 export const getParentsId = (
   id: string,
@@ -7,14 +7,9 @@ export const getParentsId = (
 ): string[] => {
   const page = pages.get(id);
 
-  if (!page || !page.parentId) {
-    return result;
-  }
-
   if (page && page.parentId) {
-    result.push(page.parentId);
-    getParentsId(page.parentId, pages);
+    return [page.parentId, ...getParentsId(page.parentId, pages)];
   }
 
-  return result;
+  return parentIds;
 };
