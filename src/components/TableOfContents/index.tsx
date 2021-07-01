@@ -1,4 +1,6 @@
 import { PagesContext } from "../../context/PagesContext";
+import { withLoading } from "../../hoc/withLoading";
+import useDebounce from "../../hooks/useDebounce";
 import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
 import { IPage } from "../../interfaces/page";
@@ -16,6 +18,7 @@ interface IProps {
 }
 
 const ITEM_LEFT_INDENT = 10;
+const TableOfContentWithLoading = withLoading(TOCItem);
 
 const TableOfContents: React.FC<IProps> = ({
   contents,
@@ -27,23 +30,17 @@ const TableOfContents: React.FC<IProps> = ({
   const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());
   const [filtered, setFiltered] = useState<string[]>(contents.topLevelIds);
 
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      const filtered = Array.from(pages).reduce<string[]>(
-        (accum, [key, value]) => {
-          if (value.title.toLowerCase().includes(query.toLowerCase())) {
-            return [...accum, key];
-          }
+  const search = () => {
+    const filtered = Array.from(pages.values())
+      .filter((value) =>
+        value.title.toLowerCase().includes(query.toLowerCase())
+      )
+      .map((value) => value.id);
 
-          return accum;
-        },
-        []
-      );
-      setFiltered(query ? filtered : contents.topLevelIds);
-    }, 500);
+    setFiltered(query ? filtered : contents.topLevelIds);
+  };
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [query]);
+  const isSearching = useDebounce(query, 500, search);
 
   useEffect(() => {
     setPages(objectToMap(contents.entities.pages));
@@ -65,7 +62,8 @@ const TableOfContents: React.FC<IProps> = ({
               return (
                 <PagesContext.Provider key={pageId} value={pages}>
                   <AnchorsContext.Provider value={anchors}>
-                    <TOCItem
+                    <TableOfContentWithLoading
+                      isLoading={isSearching}
                       id={pageId}
                       title={page.title}
                       leftIndent={page.level * ITEM_LEFT_INDENT}
