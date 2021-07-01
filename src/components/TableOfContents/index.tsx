@@ -49,36 +49,32 @@ const TableOfContents: React.FC<IProps> = ({
 
   return (
     <div className={style.root}>
-      {contents?.topLevelIds.length ? (
-        <>
-          <SearchInput query={query} onChange={setQuery} />
-          <ul>
-            {filtered.map((pageId: string) => {
-              const page = pages.get(pageId);
-              if (!page) {
-                return null;
-              }
+      <SearchInput query={query} onChange={setQuery} />
+      <ul>
+        {filtered.map((pageId: string) => {
+          const page = pages.get(pageId);
+          if (!page) {
+            return null;
+          }
 
-              return (
-                <PagesContext.Provider key={pageId} value={pages}>
-                  <AnchorsContext.Provider value={anchors}>
-                    <TableOfContentWithLoading
-                      isLoading={isSearching}
-                      id={pageId}
-                      title={page.title}
-                      leftIndent={page.level * ITEM_LEFT_INDENT}
-                      activeId={activePageId}
-                      pagesIds={page.pages}
-                      anchorsIds={page.anchors}
-                      onSelectPage={onActiveIdUpdate}
-                    />
-                  </AnchorsContext.Provider>
-                </PagesContext.Provider>
-              );
-            })}
-          </ul>
-        </>
-      ) : null}
+          return (
+            <PagesContext.Provider key={pageId} value={pages}>
+              <AnchorsContext.Provider value={anchors}>
+                <TableOfContentWithLoading
+                  isLoading={isSearching}
+                  id={pageId}
+                  title={page.title}
+                  leftIndent={page.level * ITEM_LEFT_INDENT}
+                  activeId={activePageId}
+                  pagesIds={page.pages}
+                  anchorsIds={page.anchors}
+                  onSelectPage={onActiveIdUpdate}
+                />
+              </AnchorsContext.Provider>
+            </PagesContext.Provider>
+          );
+        })}
+      </ul>
     </div>
   );
 };
