@@ -13,7 +13,7 @@ import SearchInput from "components/SearchInput";
 
 interface IProps {
   contents: IContent;
-  activePageId: string;
+  activeId: string;
   onActiveIdUpdate: (id: string) => void;
 }
 
@@ -22,7 +22,7 @@ const TableOfContentWithLoading = withLoading(TOCItem);
 
 const TableOfContents: React.FC<IProps> = ({
   contents,
-  activePageId,
+  activeId,
   onActiveIdUpdate,
 }) => {
   const [query, setQuery] = useState<string>("");
@@ -65,10 +65,10 @@ const TableOfContents: React.FC<IProps> = ({
                   id={pageId}
                   title={page.title}
                   leftIndent={page.level * ITEM_LEFT_INDENT}
-                  activeId={activePageId}
+                  activeId={activeId}
                   pagesIds={page.pages}
                   anchorsIds={page.anchors}
-                  onSelectPage={onActiveIdUpdate}
+                  onSelect={onActiveIdUpdate}
                 />
               </AnchorsContext.Provider>
             </PagesContext.Provider>

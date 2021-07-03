@@ -19,7 +19,7 @@ const InitialTOCState: IContent = {
   topLevelIds: [],
 };
 
-const TableOfContextWithLoading = withLoading(withError(TableOfContents));
+const TableOfContentsWithLoading = withLoading(withError(TableOfContents));
 
 const HelpPage = () => {
   const {
@@ -28,7 +28,7 @@ const HelpPage = () => {
     isError,
   } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", []);
 
-  const [activeId, setActiveId] = useState<string>("topicId287958");
+  const [activeId, setActiveId] = useState<string>("top");
 
   return (
     <div className={style.root}>
@@ -36,11 +36,11 @@ const HelpPage = () => {
         <Header />
       </div>
       <div className={style.sidebar}>
-        <TableOfContextWithLoading
+        <TableOfContentsWithLoading
           contents={contents || InitialTOCState}
           isLoading={isLoading}
           isError={isError}
-          activePageId={activeId}
+          activeId={activeId}
           onActiveIdUpdate={setActiveId}
         />
       </div>

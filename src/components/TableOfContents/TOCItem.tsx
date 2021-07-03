@@ -1,10 +1,10 @@
 import cn from "classnames";
 import React, { useContext, useEffect, useState } from "react";
 import { BiChevronUp } from "react-icons/all";
+import { AnchorsContext } from "../../context/AnchorsContext";
 import { PagesContext } from "../../context/PagesContext";
 import { getParentsId } from "../../utils/getParentsId";
-
-import AnchorList from "./AnchorList";
+import Anchor from "./Anchor";
 import style from "./TOCItem.module.scss";
 
 interface IProps {
@@ -15,10 +15,11 @@ interface IProps {
   pagesIds?: string[];
   anchorsIds?: string[];
 
-  onSelectPage: (pageId: string) => void;
+  onSelect: (pageId: string) => void;
 }
 
 const ITEM_LEFT_MARGIN = 10;
+const ALONG_LEFT_INDENT = 16;
 
 const TOCItem: React.FC<IProps> = ({
   id,
@@ -27,9 +28,10 @@ const TOCItem: React.FC<IProps> = ({
   leftIndent,
   pagesIds,
   anchorsIds,
-  onSelectPage,
+  onSelect,
 }) => {
   const pages = useContext(PagesContext);
+  const anchors = useContext(AnchorsContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const hasNestedPage = pagesIds && pagesIds.length > 0;
@@ -48,15 +50,31 @@ const TOCItem: React.FC<IProps> = ({
   }, []);
 
   const clickHandler = (pageId: string) => {
-    onSelectPage(pageId);
+    onSelect(pageId);
     setIsOpen((current) => {
       return !current;
     });
   };
 
+  const anchorClickHandler = (id: string) => {
+    onSelect(id);
+  };
+
+  const checkGroupIsActive = (): boolean => {
+    const hasActiveAnchor = anchorsIds && anchorsIds.includes(activeId);
+
+    return id === activeId || (hasActiveAnchor as boolean);
+  };
+
   return (
     <>
-      <li className={cn(style.root, { [style.active]: id === activeId })}>
+      <li
+        className={cn(style.root, {
+          [style.active]: id === activeId,
+          [style.activeGroup]: checkGroupIsActive(),
+        })}
+        id={id}
+      >
         <div
           className={style.pageLink}
           style={{ paddingLeft: leftIndent }}
@@ -71,17 +89,8 @@ const TOCItem: React.FC<IProps> = ({
               />
             </span>
           )}
-          <span className={cn(style.title, style.pageTitle)}>{title}</span>
+          <span className={style.title}>{title}</span>
         </div>
-        {isOpen && hasAnchors ? (
-          <ul className={style.anchorList} onClick={() => onSelectPage(id)}>
-            <AnchorList
-              anchorsIds={anchorsIds!}
-              leftIndent={leftIndent}
-              parentIsActive={id === activeId}
-            />
-          </ul>
-        ) : null}
       </li>
 
       {isOpen && hasNestedPage
@@ -97,11 +106,43 @@ const TOCItem: React.FC<IProps> = ({
                 id={pageId}
                 title={page.title}
                 activeId={activeId}
-                leftIndent={page.level * ITEM_LEFT_MARGIN}
+                leftIndent={
+                  page.level *
+                  (hasChildren ? ITEM_LEFT_MARGIN : ALONG_LEFT_INDENT)
+                }
                 pagesIds={page.pages}
                 anchorsIds={page.anchors}
-                onSelectPage={(id) => onSelectPage(id)}
+                onSelect={onSelect}
               />
+            );
+          })
+        : null}
+
+      {isOpen && hasAnchors
+        ? anchorsIds?.map((anchorId) => {
+            const anchor = anchors.get(anchorId);
+            if (!anchor) {
+              return null;
+            }
+
+            return (
+              <li
+                key={anchorId}
+                id={anchorId}
+                className={cn(style.root, {
+                  [style.active]: anchorId === activeId,
+                  [style.activeGroup]: checkGroupIsActive(),
+                })}
+              >
+                <Anchor
+                  id={anchorId}
+                  leftIndent={
+                    leftIndent + (anchor.level + 1) * ALONG_LEFT_INDENT
+                  }
+                  title={anchor.title}
+                  onSelect={anchorClickHandler}
+                />
+              </li>
             );
           })
         : null}

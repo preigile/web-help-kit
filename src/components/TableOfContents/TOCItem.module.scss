@@ -5,28 +5,19 @@
   flex-direction: column;
   align-items: end;
   padding: 8px 0 8px 16px;
-  transition: background .2s ease-in-out;
+  transition: background .2s linear;
 
-  &.active {
-    background: $grey-light;
+  .pageLink,
+  .anchorLink {
+    padding-right: 20px;
 
-    .pageTitle {
-      font-weight: bold;
+    &:hover {
+      cursor: pointer;
+
+      .title {
+        text-decoration: underline;
+      }
     }
-  }
-
-  .pageLink:hover,
-  .anchorLink:hover {
-    cursor: pointer;
-
-    .title {
-      text-decoration: underline;
-    }
-  }
-
-  .pageLink {
-    display: flex;
-    align-items: end;
   }
 
   .title {
@@ -36,7 +27,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
-    transition: all .2s ease-in-out;
+    transition: font-weight .05s linear;
   }
 
   .icon {
@@ -51,18 +42,26 @@
       }
     }
   }
-}
 
-.anchorList {
-  margin-top: 10px;
+  &.active {
+    background: $grey-light;
 
-  .anchorTitle {
-    margin-left: 16px;
-  }
+    .pageLink,
+    .anchorLink {
+      padding-right: 10px;
+    }
 
-  .activeAnchor {
-    .anchorTitle {
+    .title {
       font-weight: bold;
     }
   }
+
+  &.activeGroup {
+    background: $grey-light;
+  }
+}
+
+.pageLink {
+  display: flex;
+  align-items: end;
 }
