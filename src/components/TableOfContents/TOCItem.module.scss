@@ -7,6 +7,12 @@
   padding: 8px 0 8px 16px;
   transition: background .2s linear;
 
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    text-decoration: underline;
+  }
+
   .pageLink,
   .anchorLink {
     padding-right: 20px;
