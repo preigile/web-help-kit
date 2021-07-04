@@ -19,3 +19,13 @@ ul {
 li {
   list-style: none;
 }
+
+a {
+  color: #27282c;
+  text-decoration: none;
+}
+
+a:focus,
+a:focus-visible {
+  outline: none;
+}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Content from "../../components/Content";
 import Header from "../../components/Header";
 import TableOfContents from "../../components/TableOfContents";
@@ -27,8 +28,18 @@ const HelpPage = () => {
     isLoading,
     isError,
   } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", []);
+  const location = useLocation();
 
   const [activeId, setActiveId] = useState<string>("top");
+
+  useEffect(() => {
+    setActiveId(getIdFromUrl());
+  }, []);
+
+  const getIdFromUrl = (): string => {
+    const text = location.search || location.hash;
+    return text.replace(/^(.*?)\?id:/gi, "");
+  };
 
   return (
     <div className={style.root}>
@@ -45,7 +56,7 @@ const HelpPage = () => {
         />
       </div>
       <div className={style.content}>
-        <Content />
+        <Content activeId={activeId} />
       </div>
     </div>
   );

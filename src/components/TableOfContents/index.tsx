@@ -66,6 +66,7 @@ const TableOfContents: React.FC<IProps> = ({
                   isLoading={isSearching}
                   id={pageId}
                   title={page.title}
+                  url={page.url}
                   leftIndent={page.level * ITEM_LEFT_INDENT}
                   activeId={activeId}
                   pagesIds={page.pages}
@@ -77,6 +78,9 @@ const TableOfContents: React.FC<IProps> = ({
           );
         })}
       </ul>
+      {filtered.length === 0 && query && (
+        <div className={style.emptyMessage}>Nothing found</div>
+      )}
     </div>
   );
 };

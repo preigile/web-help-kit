@@ -1,5 +1,12 @@
 import cn from "classnames";
 import React, { useContext, useEffect, useState } from "react";
+import {
+  Link,
+  BrowserRouter as Router,
+  useHistory,
+  Switch,
+  Route,
+} from "react-router-dom";
 import { BiChevronUp } from "react-icons/all";
 import { AnchorsContext } from "../../context/AnchorsContext";
 import { PagesContext } from "../../context/PagesContext";
@@ -11,6 +18,7 @@ import style from "./TOCItem.module.scss";
 interface IProps {
   id: string;
   title: string;
+  url: string;
   activeId: string;
   leftIndent: number;
   pagesIds?: string[];
@@ -25,12 +33,14 @@ const ALONG_LEFT_INDENT = 16;
 const TOCItem: React.FC<IProps> = ({
   id,
   title,
+  url,
   activeId,
   leftIndent,
   pagesIds,
   anchorsIds,
   onSelect,
 }) => {
+  const history = useHistory();
   const pages = useContext(PagesContext);
   const anchors = useContext(AnchorsContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -40,12 +50,13 @@ const TOCItem: React.FC<IProps> = ({
   const hasChildren = hasNestedPage || hasAnchors;
 
   useEffect(() => {
-    const parentIdsSet: Set<string> = new Set(getParentsId(activeId, pages));
+    const anchor = anchors.get(activeId);
+    const startId = anchor ? anchor.parentId : activeId;
+    const parentIdsSet: Set<string> = new Set([
+      startId,
+      ...getParentsId(startId, pages),
+    ]);
     if (parentIdsSet.has(id)) {
-      setIsOpen(true);
-    }
-
-    if (id === activeId) {
       setIsOpen(true);
     }
   }, []);
@@ -56,31 +67,42 @@ const TOCItem: React.FC<IProps> = ({
     return id === activeId || (hasActiveAnchor as boolean);
   };
 
-  const clickHandler = (pageId: string, isOpen: boolean) => {
-    onSelect(pageId);
+  const clickHandler = (isOpen: boolean): void => {
+    history.push(`/${url}?id:${id}`);
+    onSelect(id);
     if (hasChildren) {
       setIsOpen(isOpen);
     }
   };
 
-  const keyDownPage = (event: React.KeyboardEvent<HTMLElement>) => {
+  const keyDownPage = (event: React.KeyboardEvent<HTMLElement>): void => {
     switch (event.key) {
       case KeyCode.ArrowLeft: {
-        clickHandler(id, false);
+        clickHandler(false);
         break;
       }
       case KeyCode.ArrowRight: {
-        clickHandler(id, true);
+        clickHandler(true);
         break;
       }
       case KeyCode.Enter: {
-        clickHandler(id, !isOpen);
+        clickHandler(!isOpen);
       }
     }
   };
 
+  const keyDownAnchor = (
+    event: React.KeyboardEvent<HTMLElement>,
+    id: string
+  ): void => {
+    if (event.key === KeyCode.Enter) {
+      history.push(`/${url}?id:${id}`);
+      onSelect(id);
+    }
+  };
+
   return (
-    <>
+    <Router>
       <li
         className={cn(style.root, {
           [style.active]: id === activeId,
@@ -90,10 +112,11 @@ const TOCItem: React.FC<IProps> = ({
         tabIndex={0}
         onKeyDown={keyDownPage}
       >
-        <div
+        <Link
+          to={`/${url}?id:${id}`}
           className={style.pageLink}
           style={{ paddingLeft: leftIndent }}
-          onClick={() => clickHandler(id, !isOpen)}
+          onClick={() => clickHandler(!isOpen)}
         >
           {hasChildren && (
             <span className={style.icon}>
@@ -105,7 +128,7 @@ const TOCItem: React.FC<IProps> = ({
             </span>
           )}
           <span className={style.title}>{title}</span>
-        </div>
+        </Link>
       </li>
 
       {isOpen && hasNestedPage
@@ -120,6 +143,7 @@ const TOCItem: React.FC<IProps> = ({
                 key={pageId}
                 id={pageId}
                 title={page.title}
+                url={page.url}
                 activeId={activeId}
                 leftIndent={
                   page.level *
@@ -149,6 +173,7 @@ const TOCItem: React.FC<IProps> = ({
                   [style.activeGroup]: checkGroupIsActive(),
                 })}
                 tabIndex={0}
+                onKeyDown={(event) => keyDownAnchor(event, anchorId)}
               >
                 <Anchor
                   id={anchorId}
@@ -156,13 +181,19 @@ const TOCItem: React.FC<IProps> = ({
                     leftIndent + (anchor.level + 1) * ALONG_LEFT_INDENT
                   }
                   title={anchor.title}
+                  url={anchor.url}
+                  anchor={anchor.anchor}
                   onSelect={onSelect}
                 />
               </li>
             );
           })
         : null}
-    </>
+
+      <Switch>
+        <Route exact path={`/:url`} />
+      </Switch>
+    </Router>
   );
 };
 
