@@ -1,5 +1,6 @@
 import { PagesContext } from "../../context/PagesContext";
 import { withLoading } from "../../hoc/withLoading";
+import { useArrowKeyNavigation } from "../../hooks/useArrowKeyNavigation";
 import useDebounce from "../../hooks/useDebounce";
 import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
@@ -25,6 +26,7 @@ const TableOfContents: React.FC<IProps> = ({
   activeId,
   onActiveIdUpdate,
 }) => {
+  const parentRef = useArrowKeyNavigation<HTMLUListElement>("li");
   const [query, setQuery] = useState<string>("");
   const [pages, setPages] = useState<Map<string, IPage>>(new Map());
   const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());
@@ -50,7 +52,7 @@ const TableOfContents: React.FC<IProps> = ({
   return (
     <div className={style.root}>
       <SearchInput query={query} onChange={setQuery} />
-      <ul>
+      <ul ref={parentRef}>
         {filtered.map((pageId: string) => {
           const page = pages.get(pageId);
           if (!page) {

@@ -1,4 +1,4 @@
-import objectToMap from "./convertToMap";
+import { objectToMap } from "./convertToMap";
 
 const obj = { one: "value1", two: "value2", three: "value3" };
 

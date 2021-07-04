@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { BiChevronUp } from "react-icons/all";
 import { AnchorsContext } from "../../context/AnchorsContext";
 import { PagesContext } from "../../context/PagesContext";
-import { KeyCode } from "../../enums/keyCodes";
 import { getParentsId } from "../../utils/getParentsId";
 import Anchor from "./Anchor";
 import style from "./TOCItem.module.scss";
@@ -66,12 +65,6 @@ const TOCItem: React.FC<IProps> = ({
     return id === activeId || (hasActiveAnchor as boolean);
   };
 
-  const checkKeys = (event: React.KeyboardEvent<HTMLElement>, id: string) => {
-    if (event.key === KeyCode.Enter) {
-      clickHandler(id);
-    }
-  };
-
   return (
     <>
       <li
@@ -81,13 +74,8 @@ const TOCItem: React.FC<IProps> = ({
         })}
         id={id}
         tabIndex={0}
-        onKeyDown={(event) => checkKeys(event, id)}
       >
-        <div
-          className={style.pageLink}
-          style={{ paddingLeft: leftIndent }}
-          onClick={() => clickHandler(id)}
-        >
+        <div className={style.pageLink} style={{ paddingLeft: leftIndent }}>
           {hasChildren && (
             <span className={style.icon}>
               <BiChevronUp
@@ -142,7 +130,6 @@ const TOCItem: React.FC<IProps> = ({
                   [style.activeGroup]: checkGroupIsActive(),
                 })}
                 tabIndex={0}
-                onKeyDown={(event) => checkKeys(event, id)}
               >
                 <Anchor
                   id={anchorId}
