@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BiChevronUp } from "react-icons/all";
 import { AnchorsContext } from "../../context/AnchorsContext";
 import { PagesContext } from "../../context/PagesContext";
+import { KeyCode } from "../../enums/keyCodes";
 import { getParentsId } from "../../utils/getParentsId";
 import Anchor from "./Anchor";
 import style from "./TOCItem.module.scss";
@@ -51,19 +52,24 @@ const TOCItem: React.FC<IProps> = ({
 
   const clickHandler = (pageId: string) => {
     onSelect(pageId);
-    setIsOpen((current) => {
-      return !current;
-    });
-  };
 
-  const anchorClickHandler = (id: string) => {
-    onSelect(id);
+    if (hasChildren) {
+      setIsOpen((current) => {
+        return !current;
+      });
+    }
   };
 
   const checkGroupIsActive = (): boolean => {
     const hasActiveAnchor = anchorsIds && anchorsIds.includes(activeId);
 
     return id === activeId || (hasActiveAnchor as boolean);
+  };
+
+  const checkKeys = (event: React.KeyboardEvent<HTMLElement>, id: string) => {
+    if (event.key === KeyCode.Enter) {
+      clickHandler(id);
+    }
   };
 
   return (
@@ -74,6 +80,8 @@ const TOCItem: React.FC<IProps> = ({
           [style.activeGroup]: checkGroupIsActive(),
         })}
         id={id}
+        tabIndex={0}
+        onKeyDown={(event) => checkKeys(event, id)}
       >
         <div
           className={style.pageLink}
@@ -133,6 +141,8 @@ const TOCItem: React.FC<IProps> = ({
                   [style.active]: anchorId === activeId,
                   [style.activeGroup]: checkGroupIsActive(),
                 })}
+                tabIndex={0}
+                onKeyDown={(event) => checkKeys(event, id)}
               >
                 <Anchor
                   id={anchorId}
@@ -140,7 +150,7 @@ const TOCItem: React.FC<IProps> = ({
                     leftIndent + (anchor.level + 1) * ALONG_LEFT_INDENT
                   }
                   title={anchor.title}
-                  onSelect={anchorClickHandler}
+                  onSelect={clickHandler}
                 />
               </li>
             );
