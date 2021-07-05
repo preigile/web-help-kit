@@ -26,6 +26,7 @@ a {
 }
 
 a:focus,
-a:focus-visible {
+a:active {
   outline: none;
+  text-decoration: underline;
 }
