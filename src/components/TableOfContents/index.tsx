@@ -26,7 +26,7 @@ const TableOfContents: React.FC<IProps> = ({
   activeId,
   onActiveIdUpdate,
 }) => {
-  const parentRef = useArrowKeyNavigation<HTMLUListElement>("li");
+  const parentRef = useArrowKeyNavigation<HTMLUListElement>("a");
   const [query, setQuery] = useState<string>("");
   const [pages, setPages] = useState<Map<string, IPage>>(new Map());
   const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());

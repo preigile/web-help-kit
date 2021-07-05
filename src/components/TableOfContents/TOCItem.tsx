@@ -1,19 +1,18 @@
 import cn from "classnames";
 import React, { useContext, useEffect, useState } from "react";
+import { BiChevronUp } from "react-icons/all";
 import {
-  Link,
   BrowserRouter as Router,
   useHistory,
   Switch,
   Route,
 } from "react-router-dom";
-import { BiChevronUp } from "react-icons/all";
 import { AnchorsContext } from "../../context/AnchorsContext";
 import { PagesContext } from "../../context/PagesContext";
 import { KeyCode } from "../../enums/keyCode";
 import { getParentsId } from "../../utils/getParentsId";
-import Anchor from "./Anchor";
 import style from "./TOCItem.module.scss";
+import LinkedList from "./LinkedList";
 
 interface IProps {
   id: string;
@@ -47,7 +46,7 @@ const TOCItem: React.FC<IProps> = ({
 
   const hasNestedPage = pagesIds && pagesIds.length > 0;
   const hasAnchors = anchorsIds && anchorsIds.length > 0;
-  const hasChildren = hasNestedPage || hasAnchors;
+  const hasChildren = Boolean(hasNestedPage || hasAnchors);
 
   useEffect(() => {
     const anchor = anchors.get(activeId);
@@ -67,11 +66,11 @@ const TOCItem: React.FC<IProps> = ({
     return id === activeId || (hasActiveAnchor as boolean);
   };
 
-  const clickHandler = (isOpen: boolean): void => {
+  const clickHandler = (opened: boolean): void => {
     history.push(`/${url}?id:${id}`);
     onSelect(id);
     if (hasChildren) {
-      setIsOpen(isOpen);
+      setIsOpen(opened);
     }
   };
 
@@ -84,9 +83,6 @@ const TOCItem: React.FC<IProps> = ({
       case KeyCode.ArrowRight: {
         clickHandler(true);
         break;
-      }
-      case KeyCode.Enter: {
-        clickHandler(!isOpen);
       }
     }
   };
@@ -103,33 +99,29 @@ const TOCItem: React.FC<IProps> = ({
 
   return (
     <Router>
-      <li
-        className={cn(style.root, {
-          [style.active]: id === activeId,
-          [style.activeGroup]: checkGroupIsActive(),
-        })}
+      <LinkedList
         id={id}
-        tabIndex={0}
-        onKeyDown={keyDownPage}
+        title={title}
+        url={`/${url}?id:${id}`}
+        leftIndent={leftIndent}
+        isActive={id === activeId}
+        isActiveGroup={checkGroupIsActive()}
+        clickHandler={() => clickHandler(!isOpen)}
+        keyDownHandler={keyDownPage}
       >
-        <Link
-          to={`/${url}?id:${id}`}
-          className={style.pageLink}
-          style={{ paddingLeft: leftIndent }}
-          onClick={() => clickHandler(!isOpen)}
-        >
-          {hasChildren && (
-            <span className={style.icon}>
-              <BiChevronUp
-                className={cn(style.chevronIcon, {
-                  [style.chevronDown]: isOpen,
-                })}
-              />
-            </span>
-          )}
-          <span className={style.title}>{title}</span>
-        </Link>
-      </li>
+        {hasChildren && (
+          <span className={style.icon}>
+            <BiChevronUp
+              className={cn(style.chevronIcon, {
+                [style.chevronDown]: isOpen,
+              })}
+            />
+          </span>
+        )}
+        <span className={cn(style.title, { [style.active]: id === activeId })}>
+          {title}
+        </span>
+      </LinkedList>
 
       {isOpen && hasNestedPage
         ? pagesIds?.map((pageId) => {
@@ -165,27 +157,25 @@ const TOCItem: React.FC<IProps> = ({
             }
 
             return (
-              <li
+              <LinkedList
                 key={anchorId}
                 id={anchorId}
-                className={cn(style.root, {
-                  [style.active]: anchorId === activeId,
-                  [style.activeGroup]: checkGroupIsActive(),
-                })}
-                tabIndex={0}
-                onKeyDown={(event) => keyDownAnchor(event, anchorId)}
+                title={anchor.title}
+                url={`/${anchor.url}${anchor.anchor}?id:${id}`}
+                leftIndent={leftIndent + (anchor.level + 1) * ALONG_LEFT_INDENT}
+                isActive={anchorId === activeId}
+                isActiveGroup={checkGroupIsActive()}
+                clickHandler={() => onSelect(anchorId)}
+                keyDownHandler={(event) => keyDownAnchor(event, anchorId)}
               >
-                <Anchor
-                  id={anchorId}
-                  leftIndent={
-                    leftIndent + (anchor.level + 1) * ALONG_LEFT_INDENT
-                  }
-                  title={anchor.title}
-                  url={anchor.url}
-                  anchor={anchor.anchor}
-                  onSelect={onSelect}
-                />
-              </li>
+                <div
+                  className={cn(style.title, {
+                    [style.active]: anchorId === activeId,
+                  })}
+                >
+                  {anchor.title}
+                </div>
+              </LinkedList>
             );
           })
         : null}
