@@ -11,6 +11,7 @@ import { IContent } from "../../interfaces/content";
 import { IObject } from "../../interfaces/object";
 import { IPage } from "../../interfaces/page";
 import style from "./HelpPage.module.scss";
+import plug from "../../mocks/HelpTOC.json";
 
 const InitialTOCState: IContent = {
   entities: {
@@ -27,7 +28,7 @@ const HelpPage = () => {
     data: contents,
     isLoading,
     isError,
-  } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", []);
+  } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", plug, []);
   const location = useLocation();
 
   const [activeId, setActiveId] = useState<string>("top");
@@ -50,7 +51,7 @@ const HelpPage = () => {
         <TableOfContentsWithLoading
           contents={contents || InitialTOCState}
           isLoading={isLoading}
-          isError={isError}
+          isError={isError && !contents}
           activeId={activeId}
           onActiveIdUpdate={setActiveId}
         />

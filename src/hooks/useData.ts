@@ -7,7 +7,11 @@ interface IResult<T> {
   isError: boolean;
 }
 
-const useData = <T>(endpoint: string, deps: any[] = []): IResult<T> => {
+const useData = <T>(
+  endpoint: string,
+  plug: T,
+  deps: any[] = []
+): IResult<T> => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -20,6 +24,7 @@ const useData = <T>(endpoint: string, deps: any[] = []): IResult<T> => {
 
         setData(result);
       } catch (error) {
+        setData(plug);
         setIsError(true);
       } finally {
         setIsLoading(false);

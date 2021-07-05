@@ -1,0 +1,429 @@
+{
+  "entities": {
+    "pages": {
+      "top": {
+        "id": "top",
+        "title": "Meet IntelliJ IDEA",
+        "disqus_id": "Meet_the_Product_1",
+        "url": "meet-intellij-idea.html",
+        "level": 0,
+        "pages": [
+          "Install_and_set_up__product_",
+          "Accessibility",
+          "Discover_IntelliJ_IDEA",
+          "topicId986295",
+          "_product_Pro_Tips"
+        ],
+        "tabIndex": 0
+      },
+      "Install_and_set_up__product_": {
+        "id": "Install_and_set_up__product_",
+        "title": "Install and set up IntelliJ IDEA",
+        "disqus_id": "Install_and_set_up__product__1",
+        "url": "install-and-set-up-product.html",
+        "parentId": "top",
+        "level": 1,
+        "anchors": [
+          "Install_and_set_up__product_#installation-requirements",
+          "Install_and_set_up__product_#install-IntelliJ IDEA",
+          "Install_and_set_up__product_#first-run",
+          "Install_and_set_up__product_#register-IDEA",
+          "Install_and_set_up__product_#update",
+          "Install_and_set_up__product_#toolbox-app",
+          "Install_and_set_up__product_#silent-install",
+          "Install_and_set_up__product_#install-on-linux-with-snaps"
+        ],
+        "tabIndex": 0
+      },
+      "Accessibility": {
+        "id": "Accessibility",
+        "title": "Accessibility",
+        "disqus_id": "Accessibility_1",
+        "url": "accessibility.html",
+        "parentId": "top",
+        "level": 1,
+        "anchors": [
+          "Accessibility#screen_reader",
+          "Accessibility#customize_ide"
+        ],
+        "tabIndex": 1
+      },
+      "Discover_IntelliJ_IDEA": {
+        "id": "Discover_IntelliJ_IDEA",
+        "title": "Discover IntelliJ IDEA",
+        "disqus_id": "Discover_IntelliJ_IDEA_1",
+        "url": "discover-intellij-idea.html",
+        "parentId": "top",
+        "level": 1,
+        "anchors": [
+          "Discover_IntelliJ_IDEA#UserInterface",
+          "Discover_IntelliJ_IDEA#EditorBasics",
+          "Discover_IntelliJ_IDEA#CodeCompletion",
+          "Discover_IntelliJ_IDEA#Navigation",
+          "Discover_IntelliJ_IDEA#QuickPopups",
+          "Discover_IntelliJ_IDEA#RefactoringBasics",
+          "Discover_IntelliJ_IDEA#FindingUsages",
+          "Discover_IntelliJ_IDEA#Inspections",
+          "Discover_IntelliJ_IDEA#CodeStyleFormatting",
+          "Discover_IntelliJ_IDEA#VCSBasics",
+          "Discover_IntelliJ_IDEA#Make",
+          "Discover_IntelliJ_IDEA#RunningDebugging",
+          "Discover_IntelliJ_IDEA#ApplicationServers",
+          "Discover_IntelliJ_IDEA#BuildTools",
+          "Discover_IntelliJ_IDEA#migrate",
+          "Discover_IntelliJ_IDEA#whats_next"
+        ],
+        "tabIndex": 2
+      },
+      "topicId986295": {
+        "id": "topicId986295",
+        "title": "Mastering IntelliJ IDEA keyboard shortcuts",
+        "disqus_id": "mastering_keyboard_shortcuts_1",
+        "url": "mastering-keyboard-shortcuts.html",
+        "parentId": "top",
+        "level": 1,
+        "anchors": [
+          "topicId986295#choose-keymap",
+          "topicId986295#learn-shortcuts",
+          "topicId986295#advanced-features"
+        ],
+        "tabIndex": 3
+      },
+      "_product_Pro_Tips": {
+        "id": "_product_Pro_Tips",
+        "title": "IntelliJ IDEA Pro Tips",
+        "disqus_id": "Pro_Tips_1",
+        "url": "pro-tips.html",
+        "parentId": "top",
+        "level": 1,
+        "tabIndex": 4
+      },
+      "procedures.workingwithprojects.config.template": {
+        "id": "procedures.workingwithprojects.config.template",
+        "title": "Configuring the IDE",
+        "disqus_id": "Configuring_Project_and_IDE_Settings_1",
+        "url": "configuring-project-and-ide-settings.html",
+        "level": 0,
+        "anchors": [
+          "procedures.workingwithprojects.config.template#project-level",
+          "procedures.workingwithprojects.config.template#ide-level",
+          "procedures.workingwithprojects.config.template#restore-defaults",
+          "procedures.workingwithprojects.config.template#activity-monitor"
+        ],
+        "tabIndex": 1
+      },
+      "feedback.mainpage": {
+        "id": "feedback.mainpage",
+        "title": "Sending Feedback",
+        "disqus_id": "Sending_Feedback_1",
+        "url": "sending-feedback.html",
+        "level": 0,
+        "tabIndex": 12
+      }
+    },
+    "anchors": {
+      "Install_and_set_up__product_#installation-requirements": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#installation-requirements",
+        "title": "Installation requirements",
+        "disqus_id": "d2",
+        "anchor": "#installation-requirements",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#install-IntelliJ IDEA": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#install-IntelliJ IDEA",
+        "title": "Download and install IntelliJ IDEA",
+        "disqus_id": "d2",
+        "anchor": "#install-IntelliJ IDEA",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#first-run": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#first-run",
+        "title": "Run IntelliJ IDEA for the first time",
+        "disqus_id": "d2",
+        "anchor": "#first-run",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#register-IDEA": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#register-IDEA",
+        "title": "Register IntelliJ IDEA",
+        "disqus_id": "d2",
+        "anchor": "#register-IDEA",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#update": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#update",
+        "title": "Update IntelliJ IDEA",
+        "disqus_id": "d2",
+        "anchor": "#update",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#toolbox-app": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#toolbox-app",
+        "title": "Manage IntelliJ IDEA through Toolbox App",
+        "disqus_id": "d2",
+        "anchor": "#toolbox-app",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#silent-install": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#silent-install",
+        "title": "Perform silent installation on Windows",
+        "disqus_id": "d2",
+        "anchor": "#silent-install",
+        "url": "install-and-set-up-product.html"
+      },
+      "Install_and_set_up__product_#install-on-linux-with-snaps": {
+        "parentId": "Install_and_set_up__product_",
+        "level": 0,
+        "id": "Install_and_set_up__product_#install-on-linux-with-snaps",
+        "title": "Install IntelliJ IDEA as a snap package on Linux",
+        "disqus_id": "d2",
+        "anchor": "#install-on-linux-with-snaps",
+        "url": "install-and-set-up-product.html"
+      },
+      "Accessibility#screen_reader": {
+        "parentId": "Accessibility",
+        "level": 0,
+        "id": "Accessibility#screen_reader",
+        "title": "Set up a screen reader",
+        "disqus_id": "d2",
+        "anchor": "#screen_reader",
+        "url": "accessibility.html"
+      },
+      "Accessibility#customize_ide": {
+        "parentId": "Accessibility",
+        "level": 0,
+        "id": "Accessibility#customize_ide",
+        "title": "Customize the IDE",
+        "disqus_id": "d2",
+        "anchor": "#customize_ide",
+        "url": "accessibility.html"
+      },
+      "Discover_IntelliJ_IDEA#UserInterface": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#UserInterface",
+        "title": "User interface",
+        "disqus_id": "d2",
+        "anchor": "#UserInterface",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#EditorBasics": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#EditorBasics",
+        "title": "Editor basics",
+        "disqus_id": "d2",
+        "anchor": "#EditorBasics",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#CodeCompletion": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#CodeCompletion",
+        "title": "Code completion",
+        "disqus_id": "d2",
+        "anchor": "#CodeCompletion",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#Navigation": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#Navigation",
+        "title": "Navigation",
+        "disqus_id": "d2",
+        "anchor": "#Navigation",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#QuickPopups": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#QuickPopups",
+        "title": "Quick pop-ups",
+        "disqus_id": "d2",
+        "anchor": "#QuickPopups",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#RefactoringBasics": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#RefactoringBasics",
+        "title": "Refactoring basics",
+        "disqus_id": "d2",
+        "anchor": "#RefactoringBasics",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#FindingUsages": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#FindingUsages",
+        "title": "Finding usages",
+        "disqus_id": "d2",
+        "anchor": "#FindingUsages",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#Inspections": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#Inspections",
+        "title": "Inspections",
+        "disqus_id": "d2",
+        "anchor": "#Inspections",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#CodeStyleFormatting": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#CodeStyleFormatting",
+        "title": "Code style and formatting",
+        "disqus_id": "d2",
+        "anchor": "#CodeStyleFormatting",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#VCSBasics": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#VCSBasics",
+        "title": "Version control basics",
+        "disqus_id": "d2",
+        "anchor": "#VCSBasics",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#Make": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#Make",
+        "title": "Make",
+        "disqus_id": "d2",
+        "anchor": "#Make",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#RunningDebugging": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#RunningDebugging",
+        "title": "Running and debugging",
+        "disqus_id": "d2",
+        "anchor": "#RunningDebugging",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#ApplicationServers": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#ApplicationServers",
+        "title": "Application servers",
+        "disqus_id": "d2",
+        "anchor": "#ApplicationServers",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#BuildTools": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#BuildTools",
+        "title": "Working with build tools (Maven/Gradle)",
+        "disqus_id": "d2",
+        "anchor": "#BuildTools",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#migrate": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#migrate",
+        "title": "Migrating from Eclipse or NetBeans",
+        "disqus_id": "d2",
+        "anchor": "#migrate",
+        "url": "discover-intellij-idea.html"
+      },
+      "Discover_IntelliJ_IDEA#whats_next": {
+        "parentId": "Discover_IntelliJ_IDEA",
+        "level": 0,
+        "id": "Discover_IntelliJ_IDEA#whats_next",
+        "title": "What's next",
+        "disqus_id": "d2",
+        "anchor": "#whats_next",
+        "url": "discover-intellij-idea.html"
+      },
+      "topicId986295#choose-keymap": {
+        "parentId": "topicId986295",
+        "level": 0,
+        "id": "topicId986295#choose-keymap",
+        "title": "Choose the right keymap",
+        "disqus_id": "d2",
+        "anchor": "#choose-keymap",
+        "url": "mastering-keyboard-shortcuts.html"
+      },
+      "topicId986295#learn-shortcuts": {
+        "parentId": "topicId986295",
+        "level": 0,
+        "id": "topicId986295#learn-shortcuts",
+        "title": "Learn shortcuts as you work",
+        "disqus_id": "d2",
+        "anchor": "#learn-shortcuts",
+        "url": "mastering-keyboard-shortcuts.html"
+      },
+      "topicId986295#advanced-features": {
+        "parentId": "topicId986295",
+        "level": 0,
+        "id": "topicId986295#advanced-features",
+        "title": "Use advanced features",
+        "disqus_id": "d2",
+        "anchor": "#advanced-features",
+        "url": "mastering-keyboard-shortcuts.html"
+      },
+      "procedures.workingwithprojects.config.template#project-level": {
+        "parentId": "procedures.workingwithprojects.config.template",
+        "level": 0,
+        "id": "procedures.workingwithprojects.config.template#project-level",
+        "title": "Project-level settings and structure",
+        "disqus_id": "d2",
+        "anchor": "#project-level",
+        "url": "configuring-project-and-ide-settings.html"
+      },
+      "procedures.workingwithprojects.config.template#ide-level": {
+        "parentId": "procedures.workingwithprojects.config.template",
+        "level": 0,
+        "id": "procedures.workingwithprojects.config.template#ide-level",
+        "title": "IDE-level (global) settings and structure",
+        "disqus_id": "d2",
+        "anchor": "#ide-level",
+        "url": "configuring-project-and-ide-settings.html"
+      },
+      "procedures.workingwithprojects.config.template#restore-defaults": {
+        "parentId": "procedures.workingwithprojects.config.template",
+        "level": 0,
+        "id": "procedures.workingwithprojects.config.template#restore-defaults",
+        "title": "Restore the default settings",
+        "disqus_id": "d2",
+        "anchor": "#restore-defaults",
+        "url": "configuring-project-and-ide-settings.html"
+      },
+      "procedures.workingwithprojects.config.template#activity-monitor": {
+        "parentId": "procedures.workingwithprojects.config.template",
+        "level": 0,
+        "id": "procedures.workingwithprojects.config.template#activity-monitor",
+        "title": "Monitor the IDE performance",
+        "disqus_id": "d2",
+        "anchor": "#activity-monitor",
+        "url": "configuring-project-and-ide-settings.html"
+      }
+    }
+  },
+  "topLevelIds": [
+    "top",
+    "procedures.workingwithprojects.config.template",
+    "feedback.mainpage"
+  ]
+}
