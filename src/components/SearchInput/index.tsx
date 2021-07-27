@@ -3,16 +3,21 @@ import style from "./SearchInput.module.scss";
 
 interface IProps {
   query: string;
+  placeholder?: string;
   onChange: (query: string) => void;
 }
 
-const SearchInput: React.FC<IProps> = ({ query, onChange }) => {
+const SearchInput: React.FC<IProps> = ({
+  query,
+  placeholder = "filter pages",
+  onChange,
+}) => {
   return (
     <input
       className={style.root}
-      key="search"
+      name="search"
       value={query}
-      placeholder={"filter pages"}
+      placeholder={placeholder}
       onChange={(event) => onChange(event.target.value)}
     />
   );

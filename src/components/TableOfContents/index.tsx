@@ -26,7 +26,7 @@ const TableOfContents: React.FC<IProps> = ({
   activeId,
   onActiveIdUpdate,
 }) => {
-  const parentRef = useArrowKeyNavigation<HTMLUListElement>("a");
+  const parentRef = useArrowKeyNavigation<HTMLUListElement>("li");
   const [query, setQuery] = useState<string>("");
   const [pages, setPages] = useState<Map<string, IPage>>(new Map());
   const [anchors, setAnchors] = useState<Map<string, IAnchor>>(new Map());
@@ -66,7 +66,6 @@ const TableOfContents: React.FC<IProps> = ({
                   isLoading={isSearching}
                   id={pageId}
                   title={page.title}
-                  url={page.url}
                   leftIndent={page.level * ITEM_LEFT_INDENT}
                   activeId={activeId}
                   pagesIds={page.pages}

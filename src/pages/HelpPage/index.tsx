@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Content from "../../components/Content";
 import Header from "../../components/Header";
 import TableOfContents from "../../components/TableOfContents";
@@ -10,8 +10,8 @@ import { IAnchor } from "../../interfaces/anchor";
 import { IContent } from "../../interfaces/content";
 import { IObject } from "../../interfaces/object";
 import { IPage } from "../../interfaces/page";
-import style from "./HelpPage.module.scss";
 import plug from "../../mocks/HelpTOC.json";
+import style from "./HelpPage.module.scss";
 
 const InitialTOCState: IContent = {
   entities: {
@@ -29,17 +29,22 @@ const HelpPage = () => {
     isLoading,
     isError,
   } = useData<IContent>("/help/idea/2018.3/HelpTOC.json", plug, []);
+  const history = useHistory();
   const location = useLocation();
 
-  const [activeId, setActiveId] = useState<string>("top");
+  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
-    setActiveId(getIdFromUrl());
+    setActiveId(getIdFromUrl() || "top");
   }, []);
 
+  useEffect(() => {
+    history.push(activeId);
+  }, [activeId]);
+
   const getIdFromUrl = (): string => {
-    const text = location.search || location.hash;
-    return text.replace(/^(.*?)\?id:/gi, "");
+    const text = location.pathname.substring(1) + location.hash;
+    return decodeURI(text);
   };
 
   return (
